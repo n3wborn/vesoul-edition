@@ -1,0 +1,3 @@
+[submodule "vesoul"]
+	path = vesoul
+	url = git@github.com:n3wborn/vesoul.git
