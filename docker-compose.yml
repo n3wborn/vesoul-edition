@@ -6,7 +6,7 @@ services:
         container_name: db_docker_symfony
         restart: always
         volumes:
-          - db-data:/var/lib/mysql:z
+            - db-data:/var/lib/mysql:z
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         networks:
@@ -30,7 +30,7 @@ services:
         container_name: maildev_docker_symfony
         command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
         ports:
-          - "8081:80"
+            - "8081:80"
         restart: always
         networks:
             - dev
@@ -39,13 +39,28 @@ services:
         build: php
         container_name: www_docker_symfony
         ports:
-          - "80:80"
+            - "80:80"
         volumes:
-          - ./php/vhosts:/etc/apache2/sites-enabled:z
-          - ./:/var/www:z
+            - ./php/vhosts:/etc/apache2/sites-enabled:z
+            - ./:/var/www:z
         restart: always
         networks:
             - dev
+
+    node:
+        image: node
+        container_name: node_docker_symfony
+        command: "yarn run watch"
+        restart: always
+        depends_on:
+            - db
+        working_dir: /usr/src/app
+        volumes:
+            - ./vesoul:/usr/src/app:z
+        user: "node"
+        environment:
+            - NODE_ENV=production
+
 
 networks:
     dev:
