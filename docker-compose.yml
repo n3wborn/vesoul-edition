@@ -6,7 +6,7 @@ services:
         container_name: db_docker_symfony
         restart: always
         volumes:
-            - db-data:/var/lib/mysql:z
+            - db-data:/var/lib/mysql
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         networks:
@@ -41,8 +41,8 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./php/vhosts:/etc/apache2/sites-enabled:z
-            - ./:/var/www:z
+            - ./php/vhosts:/etc/apache2/sites-enabled
+            - ./:/var/www/html
         restart: always
         networks:
             - dev
@@ -56,7 +56,7 @@ services:
             - db
         working_dir: /usr/src/app
         volumes:
-            - ./vesoul:/usr/src/app:z
+            - ./vesoul:/usr/src/app
         user: "node"
         environment:
             - NODE_ENV=production
