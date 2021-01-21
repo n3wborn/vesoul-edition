@@ -31,5 +31,9 @@ RUN docker-php-ext-install pdo pdo_mysql gd opcache intl zip calendar dom mbstri
 RUN pecl install apcu && docker-php-ext-enable apcu
 
 # Run as user user in www/html dir
-RUN addgroup --system stef --gid 1000 && adduser --system stef --uid 1000 --ingroup stef
+RUN addgroup --system stef --gid 1000 && \
+    adduser --system stef --uid 1000 --ingroup stef && \
+    usermod -aG www-data stef
+
+USER stef
 WORKDIR /var/www/
