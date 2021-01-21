@@ -42,7 +42,7 @@ services:
             - "80:80"
         volumes:
             - ./php/vhosts:/etc/apache2/sites-enabled
-            - ./:/var/www/html
+            - ./vesoul:/var/www/vesoul
         restart: always
         networks:
             - dev
@@ -54,9 +54,9 @@ services:
         restart: always
         depends_on:
             - db
-        working_dir: /usr/src/app
+        working_dir: /home/node/app
         volumes:
-            - ./vesoul:/usr/src/app
+            - ./vesoul:/home/node/app
         user: "node"
         environment:
             - NODE_ENV=production
