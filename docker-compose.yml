@@ -11,6 +11,8 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         networks:
             - dev
+        cap_add:
+            - SYS_NICE
 
     phpmyadmin:
         image: phpmyadmin
@@ -46,6 +48,8 @@ services:
         restart: always
         networks:
             - dev
+        cap_add:
+            - SYS_NICE
 
     node:
         image: node
