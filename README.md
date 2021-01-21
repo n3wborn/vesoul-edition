@@ -46,7 +46,7 @@ Now you have the server's shell, type:
 ```bash
 cd vesoul
 php bin/console doctrine:database:create
-php bin/console doctrine:make:migration
+php bin/console make:migration
 php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
 exit
