@@ -3,8 +3,8 @@ services:
 
     db:
         image: mysql
-        container_name: db_docker_symfony
-        restart: always
+        container_name: db_vesoul-edition
+        restart: unless-stopped
         volumes:
             - db-data:/var/lib/mysql
         environment:
@@ -16,8 +16,8 @@ services:
 
     phpmyadmin:
         image: phpmyadmin
-        container_name: phpmyadmin_docker_symfony
-        restart: always
+        container_name: phpmyadmin_vesoul-edition
+        restart: unless-stopped
         depends_on:
             - db
         ports:
@@ -29,33 +29,33 @@ services:
 
     maildev:
         image: maildev/maildev
-        container_name: maildev_docker_symfony
+        container_name: maildev_vesoul-edition
         command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
         ports:
             - "8081:80"
-        restart: always
+        restart: unless-stopped
         networks:
             - dev
 
     www:
         build: php
-        container_name: www_docker_symfony
+        container_name: www_vesoul-edition
         ports:
             - "80:80"
         volumes:
             - ./php/vhosts:/etc/apache2/sites-enabled
             - ./vesoul:/var/www/vesoul
-        restart: always
+        restart: unless-stopped
         networks:
             - dev
         cap_add:
             - SYS_NICE
 
     node:
-        image: node
-        container_name: node_docker_symfony
+        image: node:current-buster-slim
+        container_name: node_vesoul-edition
         command: "yarn run watch"
-        restart: always
+        restart: unless-stopped
         depends_on:
             - db
         working_dir: /home/node/app
