@@ -52,7 +52,7 @@ services:
             - SYS_NICE
 
     node:
-        image: node:current-buster-slim
+        image: node:14-buster-slim
         container_name: node_vesoul-edition
         command: "yarn run watch"
         restart: unless-stopped
