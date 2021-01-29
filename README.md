@@ -20,12 +20,12 @@ docker run --rm -ti -v "$PWD:/app" --user $(id -u):$(id -g) composer install
 ### Yarn
 
 ```bash
-ocker run --rm --name yarn -u "node" -m "300M" --memory-swap "500M" -v $PWD:/usr/src/app -w /usr/src/app node:14-buster-slim yarn install
+docker run --rm --name yarn -u "node" -m "300M" --memory-swap "500M" -v $PWD:/usr/src/app -w /usr/src/app node:14-buster-slim yarn install
 ```
 
 ### Docker-compose
 
-Now, adapt Symfony .env file so that web server and database can talk to each other and then :
+Now, adapt Symfony .env file (or even better, .env.local) so that web server and database can talk to each other and then :
 
 **From vesoul-edition directory**
 
