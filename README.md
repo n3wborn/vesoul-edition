@@ -20,7 +20,7 @@ docker run --rm -ti -v "$PWD:/app" --user $(id -u):$(id -g) composer install
 ### Yarn
 
 ```bash
-docker run --rm --name yarn -u "node" -m "300M" --memory-swap "500M" -v "$PWD:/usr/src/app" -w /usr/src/app node yarn install
+ocker run --rm --name yarn -u "node" -m "300M" --memory-swap "500M" -v $PWD:/usr/src/app -w /usr/src/app node:14-buster-slim yarn install
 ```
 
 ### Docker-compose
