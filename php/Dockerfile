@@ -28,7 +28,7 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 # Configure
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql gd opcache intl zip calendar dom mbstring zip gd xsl
-RUN pecl install apcu && docker-php-ext-enable apcu
+RUN pecl install apcu xdebug && docker-php-ext-enable apcu xdebug
 
 # Run as user user in www/html dir
 RUN addgroup --system stef --gid 1000 && \
