@@ -1,4 +1,4 @@
-# [README](https://github.com/n3wborn/vesoul-edition#readme)
+# Vesoul Edition
 
 This repo is meant to give a "Docker ready" version of a project I'm working on.
 The last is linked to this one as a git submodule which must be "installed" too for
@@ -6,11 +6,11 @@ all this to work.
 
 So, to be able to work on this you have to :
 
-1. Download [Repo](https://github.com/n3wborn/vesoul-edition) and
-[Submodule](https://github.com/n3wborn/vesoul)
-2. Install Dependencies
-3. Prepare Docker
-4. Create Database and Fixtures
+1. [Download](https://github.com/n3wborn/vesoul-edition#download-repo-and-submodule) [Repo](https://github.com/n3wborn/vesoul-edition) and [Submodule](https://github.com/n3wborn/vesoul)
+2. [Install Dependencies](https://github.com/n3wborn/vesoul-edition#install-dependencies)
+3. [Prepare Docker](https://github.com/n3wborn/vesoul-edition#prepare-docker)
+4. [Create Database and Fixtures](https://github.com/n3wborn/vesoul-edition#create-database-and-fixtures)
+5. [Tests](https://github.com/n3wborn/vesoul-edition#tests)
 
 ## [Download Repo and Submodule](https://github.com/n3wborn/vesoul-edition#download-repo-and-submodule)
 
@@ -95,6 +95,8 @@ saying that database isn't created, so let's do it.
 
 ## [Create Database and Fixtures](https://github.com/n3wborn/vesoul-edition#create-database-and-fixtures)
 
+Disclaimer : there's a smarter way to do this described below this "basic" one.
+
 To do this, we will enter in our www container and create database, make
 migrations and load fixtures (if you want them of course).
 
@@ -111,9 +113,39 @@ php bin/console doctrine:fixtures:load
 exit
 ```
 
-See [prepare](https://github.com/n3wborn/vesoul#prepare) link
-if you want to quickly prepare your dev/test env, I did a composer script that
-automate the boring stuff.
+You don't want to repeat all this each time, and don't want to.
+
+If you look at composer.json you'll see 2 scripts, prepare and prepare-test.
+Thanks to this, it will be easier to prepare dev and test environment.
+
+So, just use **prepare** and **prepare-test** composer scripts :
+
+```bash
+# prepare dev environment
+docker-compose exec www sh -c cd vesoul; composer prepare
+
+# or test one
+docker-compose exec www sh -c cd vesoul; composer prepare-test
+```
+
+**Don't forget that you have to configure Symfony environment**.
+
+You can replace DATABASE_URL and MAILER_URL into .env and .env.test if you want.
+But you can also override it using .env.local and .env.test.local.
+Moreover, these ones are not committed (Symfony add them in .gitignore).
+
+## [Tests](https://github.com/n3wborn/vesoul-edition#tests)
+
+To launch tests :
+
+```bash
+# prepare dev environment
+docker-compose exec www sh -c cd vesoul; composer prepare
+
+# execute testsuite
+docker-compose exec www sh -c "cd vesoul; php bin/phpunit"
+```
+
 
 Well, now you should be ready to go ! Feel free to report anything wrong, or good !
 
